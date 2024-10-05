@@ -14,8 +14,6 @@ services:
     build:
       context: .
       dockerfile: service2.Dockerfile
-    ports:
-      - '8080:8199'
     expose:
       - 8199
     networks:

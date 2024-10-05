@@ -1,0 +1,17 @@
+> docker container ls
+```
+~/workspace/TUNI/Devops/docker-exercise exercise1 ❯ docker container ls                  
+CONTAINER ID   IMAGE                      COMMAND            CREATED         STATUS         PORTS                                         NAMES
+0df849f804c7   docker-exercise-service2   "./main"           4 minutes ago   Up 4 minutes   0.0.0.0:8080->8199/tcp, [::]:8080->8199/tcp   docker-exercise-service2-1
+45bddeee98a5   docker-exercise-service1   "python main.py"   8 minutes ago   Up 8 minutes   0.0.0.0:8199->8199/tcp, :::8199->8199/tcp     docker-exercise-service1-1
+```
+
+> docker network ls
+```
+~/workspace/TUNI/Devops/docker-exercise exercise1* ❯ docker network ls  
+NETWORK ID     NAME                             DRIVER    SCOPE
+11ba5e2a145a   bridge                           bridge    local
+fbf0e67e026c   docker-exercise_shared-network   bridge    local
+c6126b9d27b7   host                             host      local
+9b2e31146814   none                             null      local
+```
