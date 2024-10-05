@@ -1,0 +1,3 @@
+Found some discrepancies between the last reboot time of both container on my local machine. 
+The time difference can't be explained by timezone either, as they are almost 24 hour apart.
+Asked ChatGPT for some hypothesis, it suggest checking the container time synchronization with my local PC, but both of them are in sync and not the reason of error. Decided to put it on hold.

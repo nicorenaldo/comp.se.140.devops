@@ -1,0 +1,26 @@
+services:
+  service1:
+    build:
+      context: .
+      dockerfile: service1.Dockerfile
+    ports:
+      - '8199:8199'
+    networks:
+      - shared-network
+    depends_on:
+      - service2
+
+  service2:
+    build:
+      context: .
+      dockerfile: service2.Dockerfile
+    ports:
+      - '8080:8199'
+    expose:
+      - 8199
+    networks:
+      - shared-network
+
+networks:
+  shared-network:
+    driver: bridge
