@@ -1,10 +1,9 @@
-FROM golang:1.23
+FROM python:3.12-slim
+
+RUN apt-get update && apt-get install procps -y
 
 WORKDIR /app
 
-COPY service2-go/ ./
+COPY service2-python/ ./
 
-RUN go mod download
-RUN go build -o main .
-
-CMD ["./main"]
+CMD ["python", "main.py"]

@@ -1,12 +1,26 @@
 services:
+  nginx:
+    image: nginx
+    restart: always
+    ports:
+      - '8198:80'
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/.htpasswd:/etc/nginx/.htpasswd:ro
+      - ./nginx/index.html:/usr/share/nginx/html/index.html
+    depends_on:
+      - service1
+      - service2
+
   service1:
+    deploy:
+      mode: replicated
+      replicas: 3
     build:
       context: .
       dockerfile: service1.Dockerfile
-    ports:
-      - '8199:8199'
-    networks:
-      - shared-network
+    expose:
+      - 8199
     depends_on:
       - service2
 
@@ -16,9 +30,3 @@ services:
       dockerfile: service2.Dockerfile
     expose:
       - 8199
-    networks:
-      - shared-network
-
-networks:
-  shared-network:
-    driver: bridge

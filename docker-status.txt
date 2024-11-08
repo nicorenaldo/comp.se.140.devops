@@ -1,17 +1,21 @@
 > docker container ls
 ```
-~/workspace/TUNI/Devops/docker-exercise exercise1 ❯ docker container ls                  
-CONTAINER ID   IMAGE                      COMMAND            CREATED         STATUS         PORTS                                         NAMES
-0df849f804c7   docker-exercise-service2   "./main"           4 minutes ago   Up 4 minutes   0.0.0.0:8080->8199/tcp, [::]:8080->8199/tcp   docker-exercise-service2-1
-45bddeee98a5   docker-exercise-service1   "python main.py"   8 minutes ago   Up 8 minutes   0.0.0.0:8199->8199/tcp, :::8199->8199/tcp     docker-exercise-service1-1
+~/workspace/TUNI/Devops/nginx-exercise exercise1 ❯ docker container ls                  
+CONTAINER ID   IMAGE                                     COMMAND                  CREATED          STATUS              PORTS                                           NAMES
+b2586eab309a   nginx-exercise-service1                   "./main"                 42 seconds ago   Up 41 seconds       8199/tcp                                        nginx-exercise-service1-1
+416a1bde43a0   nginx-exercise-service1                   "./main"                 42 seconds ago   Up 41 seconds       8199/tcp                                        nginx-exercise-service1-3
+bd1caed85970   nginx-exercise-service1                   "./main"                 42 seconds ago   Up 40 seconds       8199/tcp                                        nginx-exercise-service1-2
+7da60513f536   nginx-exercise-service2                   "python main.py"         2 hours ago      Up 2 hours          8199/tcp                                        nginx-exercise-service2-1
+7952cf607a0b   nginx                                     "/docker-entrypoint.…"   10 hours ago     Up About a minute   0.0.0.0:8198->80/tcp, [::]:8198->80/tcp         nginx-exercise-nginx-1
 ```
 
 > docker network ls
 ```
 ~/workspace/TUNI/Devops/docker-exercise exercise1* ❯ docker network ls  
-NETWORK ID     NAME                             DRIVER    SCOPE
-11ba5e2a145a   bridge                           bridge    local
-fbf0e67e026c   docker-exercise_shared-network   bridge    local
-c6126b9d27b7   host                             host      local
-9b2e31146814   none                             null      local
+❯ sudo docker network ls  
+NETWORK ID     NAME                            DRIVER    SCOPE
+439835b2d02f   bridge                          bridge    local
+c6126b9d27b7   host                            host      local
+af98631d69c3   nginx-exercise_default          bridge    local
+9b2e31146814   none                            null      local
 ```

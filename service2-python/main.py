@@ -6,9 +6,6 @@ import signal
 import socketserver
 import subprocess
 import sys
-from typing import Union
-
-import requests
 
 PORT = int(os.getenv("PORT", 8199))
 
@@ -48,28 +45,12 @@ class GetInfoHandler(http.server.SimpleHTTPRequestHandler):
             "last_boot": last_boot,
         }
 
-    def get_service2_info(self) -> Union[dict, None]:
-        try:
-            logging.info("Getting service2 info...")
-            response = requests.get("http://service2:" + str(PORT))
-            logging.info("Service2 response: " + str(response.status_code))
-            return response.json()
-        except Exception as e:
-            logging.error("Failed to get service2 info: " + str(e))
-            return None
-
     def do_GET(self):
         self.send_response(200)
         self.send_header("Content-type", "text/plain")
         self.end_headers()
 
-        service1_info = self.get_info()
-        service2_info = self.get_service2_info()
-
-        payload = {
-            "service1": service1_info,
-            "service2": service2_info,
-        }
+        payload = self.get_info()
         self.wfile.write(json.dumps(payload, indent=4).encode("utf-8"))
 
 

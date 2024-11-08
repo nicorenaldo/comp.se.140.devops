@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<style>
+    .container {
+        padding: 0 2rem;
+    }
+
+    .textarea {
+        padding-top: 1rem;
+        width: 100%;
+        min-height: 80vh;
+        height: 100%;
+    }
+</style>
+
+<body>
+    <div class="container">
+        <div>
+            <button class="btn" id="requestBtn">REQUEST</button>
+            <button class="btn" id="stopBtn">STOP</button>
+        </div>
+        <textarea class="textarea" id="responseText"></textarea>
+    </div>
+
+    <script>
+        const requestBtn = document.getElementById('requestBtn');
+        const stopBtn = document.getElementById('stopBtn');
+        const responseText = document.getElementById('responseText');
+
+        requestBtn.addEventListener('click', () => {
+            fetch('/request')
+                .then(response => response.text())
+                .then(data => {
+                    responseText.value = data;
+                })
+                .catch(error => {
+                    responseText.value = 'Error: ' + error.message;
+                });
+        });
+
+        stopBtn.addEventListener('click', () => {
+            // Send a request to stop the system
+            fetch('/stop')
+                .then(response => {
+                    if (response.ok) {
+                        alert('System stopped.');
+                    } else {
+                        alert('Error stopping the system.');
+                    }
+                })
+                .catch(error => {
+                    alert('Error stopping the system: ' + error.message);
+                });
+        });
+    </script>
+</body>
+
+</html>

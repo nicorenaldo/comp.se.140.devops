@@ -56,46 +56,28 @@ func getLastBoot() string {
 	}
 
 	outStr := strings.TrimSpace(string(out))
-	log.Println("Last boot: ", outStr)
 	outStr = strings.Join(
 		strings.Fields(outStr)[2:],
 		" ",
 	)
-	log.Println("Last boot: ", outStr)
 
 	return outStr
 }
 
-func handle(w http.ResponseWriter, req *http.Request) {
-	w.Header().Set("Content-Type", "text/json")
-
-	message := Message{
-		IP:       getIP(),
-		PS:       getPS(),
-		DF:       getDF(),
-		LastBoot: getLastBoot(),
-	}
-
-	jsonMessage, err := json.Marshal(message)
+func getService2Info() Message {
+	resp, err := http.Get("http://service2:8199/request")
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
+		log.Println("Error getting service2 info: ", err)
+		return Message{}
 	}
+	defer resp.Body.Close()
 
-	_, err = w.Write(jsonMessage)
+	service2Info := Message{}
+	err = json.NewDecoder(resp.Body).Decode(&service2Info)
 	if err != nil {
-		log.Println("Error writing response: ", err)
-		return
+		log.Println("Error decoding service2 info: ", err)
+		return Message{}
 	}
-}
 
-func main() {
-	http.HandleFunc("/", handle)
-
-	log.Println("Starting server on port 8199")
-	err := http.ListenAndServe(":8199", nil)
-	if err != nil {
-		log.Println("Error starting server: ", err)
-		return
-	}
+	return service2Info
 }
